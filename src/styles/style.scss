@@ -1,0 +1,127 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+h1,
+h2 {
+  color: $primary-color-text;
+  padding: 20px 10px;
+}
+
+.line {
+  border-top: 2px solid rgba(0, 0, 0, 0.1); /* Adjust color and opacity as needed */
+}
+.line-left {
+  border-left: 2px solid rgba(0, 0, 0, 0.1); /* Adjust color and opacity as needed */
+}
+.layout-form {
+  background-color: white;
+  box-shadow: 0 0 10px rgba(2, 89, 160, 0.3);
+  width: 580px;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 30px;
+}
+.layout-input {
+  display: flex;
+  margin: 15px;
+  align-items: center;
+  justify-content: space-between;
+  .label-input {
+    width: 150px;
+    color: $primary-color-text;
+    font-weight: bold;
+    text-align: left;
+    margin: 20px;
+  }
+  input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+  }
+}
+.action {
+  display: flex;
+  margin: 20px;
+  flex-direction: row-reverse;
+}
+.btn-primary {
+  background-color: $primary-color-button;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 30px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+// FormInput
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin: 20px 20px 40px 20px;
+}
+.list-task {
+  display: block;
+  margin: 15px;
+  .task {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    .task-content {
+      color: $primary-color-text;
+      font-weight: bold;
+      text-align: left;
+      width: 160px;
+    }
+    .task-status {
+      color: $primary-color-text;
+      font-weight: bold;
+    }
+    .task-actions {
+      width: 111px;
+      display: flex;
+      color: $primary-color-button;
+      justify-content: space-between;
+      .edit-btn,
+      .delete-btn {
+        border: 1px solid #ccc;
+        border-radius: 14px;
+        padding: 2px 8px;
+        font-size: 15px;
+        font-weight: bold;
+      }
+      .edit-btn > i {
+        padding-right: 5px;
+      }
+    }
+  }
+}
+
+// Edit Form
+.list-status {
+  border: 1px solid #ccc;
+  width: 40%;
+  text-align: left;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+select {
+  outline: none;
+  -webkit-appearance: listbox !important;
+}
+option {
+  color: black;
+}
+
+.btn-primary.btn-cancel {
+  background-color: white;
+  color: $primary-color-button;
+  border: 1px solid #ccc;
+}
