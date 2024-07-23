@@ -25,6 +25,11 @@
 <script>
 export default {
   name: "FormEdit",
+  data() {
+    return {
+     
+    };
+  },
 };
 </script>
 

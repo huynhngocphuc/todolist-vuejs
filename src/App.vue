@@ -1,5 +1,5 @@
 <template>
-  <FormInput />
+  <FormInput :tasks="tasks" />
   <FormEdit />
 </template>
 
@@ -12,6 +12,23 @@ export default {
     FormInput,
     FormEdit,
   },
+  created() {
+    this.getDataLocalStorage();
+  },
+  data() {
+    return {
+      tasks: ["abc"]
+    }
+  },
+  methods: {
+    getDataLocalStorage(){
+      const tasks = JSON.parse(localStorage.getItem("tasks"));
+      if(tasks){
+        this.tasks = tasks;
+      }
+    }
+  }
+
 };
 </script>
 

@@ -1,9 +1,11 @@
 body {
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
   align-items: center;
   height: 100vh;
+  .app{
+    display:flex;
+    justify-content: center;
+  }
 }
 h1,
 h2 {
@@ -73,6 +75,7 @@ h2 {
   .task {
     display: flex;
     justify-content: space-between;
+    text-align: center;
     margin: 20px;
     .task-content {
       color: $primary-color-text;
