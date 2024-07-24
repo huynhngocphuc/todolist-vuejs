@@ -1,34 +1,14 @@
 <template>
-  <FormInput :tasks="tasks" />
-  <FormEdit />
+  <FormInput/>
 </template>
 
 <script>
-import FormEdit from "./component/FormEdit.vue";
 import FormInput from "./component/FormInput.vue";
 
 export default {
   components: {
-    FormInput,
-    FormEdit,
+    FormInput
   },
-  created() {
-    this.getDataLocalStorage();
-  },
-  data() {
-    return {
-      tasks: ["abc"]
-    }
-  },
-  methods: {
-    getDataLocalStorage(){
-      const tasks = JSON.parse(localStorage.getItem("tasks"));
-      if(tasks){
-        this.tasks = tasks;
-      }
-    }
-  }
-
 };
 </script>
 
