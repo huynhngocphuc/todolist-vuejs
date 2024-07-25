@@ -1,11 +1,15 @@
 <template>
   <div v-if="isModalEnable" class="overlay">
     <div class="layout-form">
-      <h2>Edit</h2>
+      <h2>Edit task: {{ selectedTaskUpdate.idTask }}</h2>
       <div class="line"></div>
       <div class="layout-input">
         <label for="" class="label-input"> Task name</label>
-        <input type="text" placeholder="task name" v-model="selectedTaskUpdate.name" />
+        <input
+          type="text"
+          placeholder="task name"
+          v-model="selectedTaskUpdate.name"
+        />
       </div>
 
       <div class="layout-input">
@@ -53,7 +57,6 @@ export default {
       this.cancel();
     },
     handleUpdateTask() {
-      console.log(this.selectedTaskUpdate)
       this.save(this.selectedTaskUpdate);
       this.cancel();
     },
@@ -62,13 +65,13 @@ export default {
     selectedTask: {
       handler(newVal) {
         this.selectedTaskUpdate = { ...newVal };
-      }
-    }
+      },
+    },
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .overlay {
   position: fixed;
   top: 0;
