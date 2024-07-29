@@ -1,4 +1,4 @@
-<template lang="">
+<template >
   <div class="layout-form">
     <h2>TODO APP</h2>
     <div class="line"></div>
