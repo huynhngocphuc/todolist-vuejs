@@ -1,13 +1,12 @@
 <template>
-  <FormInput/>
+  <FormInput />
 </template>
 
-<script>
-import FormInput from "./component/FormInput.vue";
-
+<script >
+import FormInput from "./component/FormVuex/FormInput.vue";
 export default {
   components: {
-    FormInput
+    FormInput,
   },
 };
 </script>
