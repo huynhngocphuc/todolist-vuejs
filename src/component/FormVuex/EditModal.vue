@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isModalEnable" class="overlay">
+  <div class="overlay">
     <div class="layout-form">
       <h2>Edit task: {{ selectedTaskUpdate.idTask }}</h2>
       <div class="line"></div>
@@ -9,9 +9,9 @@
           type="text"
           placeholder="task name"
           v-model="selectedTaskUpdate.name"
+          @keyup.enter="handleUpdateTask"
         />
       </div>
-
       <div class="layout-input">
         <label for="" class="label-input"> Status</label>
         <select class="list-status" v-model="selectedTaskUpdate.status">
@@ -21,7 +21,7 @@
       </div>
       <div class="line"></div>
       <div class="filter-buttons">
-        <button class="btn-primary btn-cancel" @click="handleCloseModel">
+        <button class="btn-primary btn-cancel" @click="setIsOpenModal(false)">
           Cancel
         </button>
         <button class="btn-primary" @click="handleUpdateTask">Update</button>
@@ -31,42 +31,30 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
   name: "EditModal",
-  props: {
-    isModalEnable: Boolean,
-    selectedTask: {
-      type: Object,
-      default: () => ({
-        idTask: Date.now().toString(),
-        name: "",
-        status: "Inprogress",
-      }),
-    },
-    save: Function,
-    cancel: Function,
+  created(){
+    this.selectedTaskUpdate = {...this.selectedTask};
   },
-
-  data() {
+  data(){
     return {
-      selectedTaskUpdate: { ...this.selectedTask },
-    };
+      selectedTaskUpdate: null,
+    }
+  },
+  computed: {
+    ...mapState("formEdit", ["selectedTask"]),
   },
   methods: {
-    handleCloseModel() {
-      this.cancel();
-    },
+    ...mapActions("formInput",["updateTask","saveLocalStorage"]),
+    ...mapActions("formEdit",["setIsOpenModal"]),
     handleUpdateTask() {
-      this.save(this.selectedTaskUpdate);
-      this.cancel();
-    },
-  },
-  watch: {
-    selectedTask: {
-      handler(newVal) {
-        this.selectedTaskUpdate = { ...newVal };
-      },
-    },
+      if(this.selectedTask.name.trim()){
+        this.updateTask(this.selectedTaskUpdate);
+        this.saveLocalStorage()
+      }
+      this.setIsOpenModal(false);
+    }
   },
 };
 </script>

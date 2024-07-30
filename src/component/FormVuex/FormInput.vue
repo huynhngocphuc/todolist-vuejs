@@ -9,7 +9,7 @@
         type="text"
         placeholder="Task name"
         v-model="newTaskInput"
-        @keyup.enter="addTask"
+        @keyup.enter="addNewTask"
       />
     </div>
 
@@ -17,15 +17,12 @@
       <button class="btn-primary" @click="addNewTask">ADD</button>
     </div>
     <div class="line"></div>
-    <!-- <h1>{{ name }}</h1> -->
-    <!-- <h1>{{ tasks }}</h1> -->
-    <!-- <h1>{{getTask}}</h1> -->
 
-    <!-- <div class="filter-buttons">
-      <button class="btn-primary" @click="filterTask" value="Completed">Completed</button>
-      <button class="btn-primary"  @click="filterTask" value="Inprogress">Inprogress</button>
-      <button class="btn-primary" @click="filterTask" value="ALL">ALL</button>
-    </div> -->
+     <div class="filter-buttons">
+      <button class="btn" :class="false ? 'active':''" @click="filterTask" value="Completed">Completed</button>
+      <button class="btn"  @click="filterTask" value="Inprogress">Inprogress</button>
+      <button class="btn" @click="filterTask" value="ALL">ALL</button>
+    </div>
     <div class="list-task" v-for="task in tasks" :key="task.idTask">
       <div class="task">
         <div class="task-content">{{ task.name }}</div>
@@ -33,31 +30,29 @@
         <div class="task-status">{{ task.status }}</div>
         <div class="line-left"></div>
         <div class="task-actions">
-          <div class="edit-btn" @click="openModal(task.idTask)">
+          <div class="edit-btn" @click="handleUpdateTask(task.idTask)">
             <i class="fa-solid fa-pen"></i>
             <button class="">Edit</button>
           </div>
-          <button @click="removeTask(task.idTask)" class="delete-btn">
+          <button @click="deleteTask(task.idTask)" class="delete-btn">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
       </div>
     </div>
-    <!-- <EditModal
-      :isModalEnable="isModalEnable"
-      :selectedTask="selectedTask"
-      :save="updateTask"
-      :cancel="closeModal"
-    /> -->
+    <EditModal v-if="isOpenModal" />
   </div>
 </template>
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import EditModal from "./EditModal.vue";
 export default {
   name: "FormInput",
   components: {
     EditModal,
+  },
+  mounted() {
+    this.getTasksLocalStorage();
   },
   data() {
     return {
@@ -67,10 +62,17 @@ export default {
   },
   computed: {
     ...mapState("formInput", ["tasks"]),
+    ...mapState("formEdit", ["isOpenModal"]),
   },
-
   methods: {
-    ...mapActions("formInput", ["addTask"]),
+    ...mapActions("formInput", [
+      "addTask",
+      "removeTask",
+      "saveLocalStorage",
+      "getTasksLocalStorage",
+      "updateTask",
+    ]),
+    ...mapActions("formEdit", ["setIsOpenModal", "setSelectedTask"]),
     addNewTask() {
       if (this.newTaskInput.trim()) {
         this.addTask({
@@ -78,8 +80,23 @@ export default {
           name: this.newTaskInput,
           status: this.status,
         });
+        this.saveLocalStorage();
         this.newTaskInput = "";
       }
+    },
+    deleteTask(idTask) {
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this task?"
+      );
+      if (confirmed) {
+        this.removeTask(idTask);
+        this.saveLocalStorage();
+      }
+    },
+    handleUpdateTask(idTask) {
+      this.setIsOpenModal(true);
+      this.setSelectedTask(idTask);
+      // this.updateTask(idTask);
     },
   },
 };
