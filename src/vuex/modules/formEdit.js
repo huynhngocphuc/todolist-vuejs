@@ -22,7 +22,6 @@ export default {
         const { tasks } = rootState.formInput;
         const taskSelected = tasks.find((task) => task.idTask === idTask);
         commit("SET_SELECTED_TASK", taskSelected);
-        console.log("🚀 ~ setSelectedTask ~ state:",taskSelected);
     },
     // action methods
   },

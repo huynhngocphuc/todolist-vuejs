@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-form">
+  <div class="form-input layout-form">
     <h2>TODO APP</h2>
     <div class="line"></div>
     <div class="layout-input">
@@ -19,11 +19,11 @@
     <div class="line"></div>
 
      <div class="filter-buttons">
-      <button class="btn" :class="false ? 'active':''" @click="filterTask" value="Completed">Completed</button>
-      <button class="btn"  @click="filterTask" value="Inprogress">Inprogress</button>
-      <button class="btn" @click="filterTask" value="ALL">ALL</button>
+      <button class="btn" :class="conditionFilter ==='Completed' ? 'active':''" @click="filterTask" value="Completed">Completed</button>
+      <button class="btn" :class="conditionFilter ==='Inprogress' ? 'active':''" @click="filterTask" value="Inprogress">Inprogress</button>
+      <button class="btn" :class="conditionFilter ==='ALL' ? 'active':''" @click="filterTask" value="ALL">ALL</button>
     </div>
-    <div class="list-task" v-for="task in tasks" :key="task.idTask">
+    <div class="list-task" v-for="task in tasksFilter" :key="task.idTask">
       <div class="task">
         <div class="task-content">{{ task.name }}</div>
         <div class="line-left"></div>
@@ -53,6 +53,7 @@ export default {
   },
   mounted() {
     this.getTasksLocalStorage();
+    this.setFilter('ALL');
   },
   data() {
     return {
@@ -61,8 +62,9 @@ export default {
     };
   },
   computed: {
-    ...mapState("formInput", ["tasks"]),
+    ...mapState("formInput", ["tasks","conditionFilter","tasksFilter"]),
     ...mapState("formEdit", ["isOpenModal"]),
+  
   },
   methods: {
     ...mapActions("formInput", [
@@ -71,6 +73,7 @@ export default {
       "saveLocalStorage",
       "getTasksLocalStorage",
       "updateTask",
+      "setFilter"
     ]),
     ...mapActions("formEdit", ["setIsOpenModal", "setSelectedTask"]),
     addNewTask() {
@@ -98,7 +101,22 @@ export default {
       this.setSelectedTask(idTask);
       // this.updateTask(idTask);
     },
+    filterTask(event){
+      const conditionFilter = event?.target?.value;
+      this.setFilter(conditionFilter)
+    }
   },
+  watch: {
+    tasks: {
+     handler(){
+       this.setFilter(this.conditionFilter)
+     },
+     deep: true
+    }
+  }
+ 
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+
+</style>

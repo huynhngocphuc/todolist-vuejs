@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     addTask() {
-      console.log("add run...");
       if (this.newTaskInput.trim()) {
         this.tasks.push({
           idTask: Date.now().toString(),
@@ -87,7 +86,6 @@ export default {
       }
     },
     removeTask(id) {
-      console.log("remove run...");
       const confirmed = window.confirm(
         "Are you sure you want to delete this task?"
       );
@@ -119,7 +117,6 @@ export default {
       }
     },
     saveLocalStorage() {
-      console.log("save localSrorage run...");
       localStorage.setItem("tasks", JSON.stringify(this.tasks));
     },
     getDataLocalStorage() {
@@ -148,7 +145,6 @@ export default {
           break;
       }
 
-      console.log(this.tasksFilter);
     },
   },
 };

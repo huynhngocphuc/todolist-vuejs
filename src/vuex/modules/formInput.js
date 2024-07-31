@@ -3,6 +3,8 @@ export default {
   state: () => ({
     // state properties
     tasks: [],
+    conditionFilter: "ALL",
+    tasksFilter: [],
   }),
   mutations: {
     // mutation methods
@@ -12,23 +14,24 @@ export default {
     REMOVE_TASK(state, indexRemove) {
       state.tasks.splice(indexRemove, 1);
     },
-    UPDATE_TASK(state, {index, taskUpdated}) {
-      // console.log("🚀 ~ UPDATE_TASK ~ index:", taskUpdated)
-      
+    UPDATE_TASK(state, { index, taskUpdated }) {
       state.tasks[index] = taskUpdated;
+    },
+    SET_TASKS_FILTER(state, tasksFilter) {
+      state.tasksFilter = tasksFilter;
+    },
+    SET_CONDITION_FILTER(state, condition) {
+      state.conditionFilter = condition;
     },
   },
   actions: {
-    addTask({ commit, state, dispatch }, payload) {
-      console.log("🚀 ~ addTask running ....");
+    addTask({ commit, state }, payload) {
       commit("SET_TASKS", [...state.tasks, payload]);
     },
     saveLocalStorage({ state }) {
-      console.log("save localSrorage run...");
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
     getTasksLocalStorage({ commit }) {
-      console.log("get task localSrorage run...");
       const tasks = JSON.parse(localStorage.getItem("tasks"));
       if (tasks) {
         commit("SET_TASKS", tasks);
@@ -41,14 +44,24 @@ export default {
       }
     },
     updateTask({ commit, state }, taskUpdated) {
-      console.log("🚀 ~ updateTask ~ taskUpdated:", taskUpdated)
       const index = state.tasks.findIndex(
         (task) => task.idTask === taskUpdated.idTask
       );
-      console.log("🚀 ~ updateTask ~ index:", index)
       if (index > -1) {
         commit("UPDATE_TASK", { index, taskUpdated });
       }
+    },
+    setFilter({ commit, state }, conditionFilter) {
+      conditionFilter = conditionFilter || "ALL";
+      commit("SET_CONDITION_FILTER", conditionFilter);
+      if (conditionFilter === "ALL") {
+        commit("SET_TASKS_FILTER", [...state.tasks]);
+        return;
+      }
+      const tasksFilter = state.tasks.filter(
+        (task) => task.status === conditionFilter
+      );
+      commit("SET_TASKS_FILTER", tasksFilter);
     },
     // action methods
   },

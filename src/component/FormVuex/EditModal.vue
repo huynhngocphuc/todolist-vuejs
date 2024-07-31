@@ -1,6 +1,6 @@
 <template>
   <div class="overlay">
-    <div class="layout-form">
+    <div class="layout-form ">
       <h2>Edit task: {{ selectedTaskUpdate.idTask }}</h2>
       <div class="line"></div>
       <div class="layout-input">
@@ -71,4 +71,5 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 </style>
