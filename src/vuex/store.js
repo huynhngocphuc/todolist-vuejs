@@ -5,5 +5,5 @@ export default createStore({
   modules: {
     formInput,
     formEdit
-  },
+  }
 });

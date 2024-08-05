@@ -5,6 +5,7 @@ export default {
     tasks: [],
     conditionFilter: "ALL",
     tasksFilter: [],
+    test: 'huynhphuc'
   }),
   mutations: {
     // mutation methods
