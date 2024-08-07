@@ -1,8 +1,7 @@
 <template>
-  <!-- <FormInput /> -->
-  <v-app>
-    <LayoutForm/>
-  </v-app>
+
+  <h1>hello</h1>
+    <router-view/>
 
 </template>
 

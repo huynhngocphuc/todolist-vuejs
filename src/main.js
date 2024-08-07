@@ -4,14 +4,15 @@ import App from "./App.vue";
 import "./styles/main.scss";
 
 import "@mdi/font/css/materialdesignicons.css";
+import { createWebHistory, createRouter } from 'vue-router';
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import "vuetify/dist/vuetify.min.css";
 import "vuetify/styles";
+import About from "./component/pageRouter/About.vue";
+import Home from "./component/pageRouter/Home.vue";
 import store from "./vuex/store";
-import { createMemoryHistory, createRouter } from 'vue-router'
-import FormInput from "./component/FormVuex/FormInput.vue"
 
 const vuetify = createVuetify({
   components,
@@ -19,18 +20,19 @@ const vuetify = createVuetify({
 });
 
 const routes = [
-  { path: '/', component: FormInput}
+  { path: '/', component: Home },
+  { path: '/about', component: About },
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
-  routes: routes
+  history: createWebHistory(),
+  routes,
 })
 
 const app = createApp(App);
 
 app.use(store);
 app.use(vuetify);
-app.use(router)
+app.use(router);
 
 app.mount("#app");

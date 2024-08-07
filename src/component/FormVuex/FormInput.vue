@@ -15,7 +15,6 @@
     <div class="action">
       <button class="btn-primary" @click="addNewTask">ADD</button>
     </div>
-    <h1>{{ getNameTest }}</h1>
     <div class="line"></div>
      <div class="filter-buttons">
       <button class="btn" :class="conditionFilter ==='Completed' ? 'active':''" @click="filterTask" value="Completed">Completed</button>
@@ -61,9 +60,8 @@ export default {
     };
   },
   computed: {
-    ...mapState("formInput", ["tasks","conditionFilter","tasksFilter"]),
-    ...mapState("formEdit", ["isOpenModal"])
-  
+    ...mapState("formInput", ["tasks","conditionFilter","tasksFilter", "test"]),
+    ...mapState("formEdit", ["isOpenModal"]),
   },
   methods: {
     ...mapActions("formInput", [
@@ -85,6 +83,7 @@ export default {
         this.saveLocalStorage();
         this.newTaskInput = "";
       }
+      
     },
     deleteTask(idTask) {
       const confirmed = window.confirm(

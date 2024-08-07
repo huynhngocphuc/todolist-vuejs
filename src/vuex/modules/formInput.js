@@ -5,7 +5,7 @@ export default {
     tasks: [],
     conditionFilter: "ALL",
     tasksFilter: [],
-    test: 'huynhphuc'
+    test: 1
   }),
   mutations: {
     // mutation methods
@@ -68,7 +68,7 @@ export default {
   },
   getters: {
     // getter methods
-    tasks: (state) => state.tasks,
+    tasks: (state) => state.test + 1,
     selectedTask: (state) => state.selectedTask,
   },
 };
